@@ -1,0 +1,63 @@
+version: "3"
+
+networks:
+  lan:
+
+services:
+  bd:
+    image: amd64/postgres:9.6-alpine
+    networks:
+      - lan
+    volumes:
+      - /docker/data/zabbix/db:/var/lib/postgresql/data
+    restart: always
+    environment:
+      POSTGRES_USER: "zabbix"
+      POSTGRES_DB: "zabbix"
+      POSTGRES_PASSWORD: "zabbix1234"
+  server:
+    image: zabbix/zabbix-server-pgsql:alpine-3.4-latest
+    networks:
+      - lan
+    volumes:
+      - /docker/data/zabbix/server/alertscripts:/usr/lib/zabbix/alertscripts
+      - /docker/data/zabbix/server/externalscripts:/usr/lib/zabbix/externalscripts
+    restart: always
+    environment:
+      DB_SERVER_HOST: "zabbix_bd_1"
+      POSTGRES_USER: "zabbix"
+      POSTGRES_DB: "zabbix"
+      POSTGRES_PASSWORD: "zabbix1234"
+      ZBX_STARTPINGERS: "5"
+      ZBX_STARTDISCOVERERS: "5"
+      ZBX_STARTHTTPPOLLERS: "5"
+  web:
+    image: zabbix/zabbix-web-apache-pgsql:alpine-3.4-latest
+    networks:
+      - lan
+    restart: always
+    environment:
+      DB_SERVER_HOST: "zabbix_bd_1"
+      POSTGRES_USER: "zabbix"
+      POSTGRES_DB: "zabbix"
+      POSTGRES_PASSWORD: "zabbix1234"
+      PHP_TZ: "America/Maceio"
+      ZBX_SERVER_HOST: "zabbix_server_1"
+      ZBX_SERVER_NAME: "Zabbix-Server"
+  #proxy:
+  #  image: zabbix/zabbix-proxy-sqlite3:alpine-3.4-latest
+  #  networks:
+  #    - lan
+  #  #PSK GENEREATE
+  #  #openssl rand -hex 32 > proxy-01.psk
+  #  volumes:
+  #    - /var/lib/docker/data/zabbix-proxy/proxy-01.psk:/var/lib/zabbix/enc/proxy-01.psk
+  #  restart: always
+  #  environment:
+  #    ZBX_HOSTNAME: "proxy-01"
+  #    ZBX_SERVER_HOST: "zabbix_server_1"
+  #    ZBX_PROXYMODE: "0"
+  #    ZBX_TLSCONNECT: "psk"
+  #    ZBX_TLSACCEPT: "psk"
+  #    ZBX_TLSPSKIDENTITY: "PSK-01"
+  #    ZBX_TLSPSKFILE: "proxy-01.psk"
