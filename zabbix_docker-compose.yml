@@ -6,6 +6,7 @@ networks:
 services:
   bd:
     image: amd64/postgres:9.6-alpine
+    container_name: zabbix-bd
     networks:
       - lan
     volumes:
@@ -17,12 +18,17 @@ services:
       POSTGRES_PASSWORD: "zabbix1234"
   server:
     image: zabbix/zabbix-server-pgsql:alpine-3.4-latest
+    container_name: zabbix-server
+    depends_on:
+     - bd
     networks:
       - lan
     volumes:
       - /docker/data/zabbix/server/alertscripts:/usr/lib/zabbix/alertscripts
       - /docker/data/zabbix/server/externalscripts:/usr/lib/zabbix/externalscripts
     restart: always
+    ports:
+      - 10051:10051
     environment:
       DB_SERVER_HOST: "zabbix_bd_1"
       POSTGRES_USER: "zabbix"
@@ -33,9 +39,15 @@ services:
       ZBX_STARTHTTPPOLLERS: "5"
   web:
     image: zabbix/zabbix-web-apache-pgsql:alpine-3.4-latest
+    container_name: zabbix-web
+    depends_on:
+     - bd
     networks:
       - lan
     restart: always
+    ports:
+      - 80:80
+      - 443:443
     environment:
       DB_SERVER_HOST: "zabbix_bd_1"
       POSTGRES_USER: "zabbix"
@@ -44,6 +56,17 @@ services:
       PHP_TZ: "America/Maceio"
       ZBX_SERVER_HOST: "zabbix_server_1"
       ZBX_SERVER_NAME: "Zabbix-Server"
+  agent:
+    image: zabbix/zabbix-agent:alpine-3.4-latest
+    container_name: zabbix-agent
+    depends_on:
+     - server
+    networks:
+      - lan
+    restart: always
+    environment:
+      ZBX_SERVER_HOST: "zabbix_server_1"
+      ZBX_HOSTNAME: "zabbix-agent"
   #proxy:
   #  image: zabbix/zabbix-proxy-sqlite3:alpine-3.4-latest
   #  networks:
