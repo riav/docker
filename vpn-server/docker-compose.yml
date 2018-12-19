@@ -1,0 +1,28 @@
+version: "3"
+
+networks:
+  lan:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.0.0/24
+
+services:
+  vpn:
+    image: vpn-server
+    container_name: vpn
+    privileged: true
+    restart: always
+    environment:
+      VPN_IPSEC_PSK: CHAVE_PSK
+      VPN_USER: USER
+      VPN_PASSWORD: PASS
+      NET_ROUTE: 192.168.0.0/16
+    networks:
+      lan:
+        ipv4_address: 10.0.0.254
+    volumes:
+      - /lib/modules:/lib/modules:ro
+    ports:
+      - 500:500/udp
+      - 4500:4500/udp
