@@ -1,6 +1,11 @@
 #!/bin/sh
 #Gdrive
 #https://github.com/prasmussen/gdrive
+#https://www.postgresql.org/docs/9.6/continuous-archiving.html
+# postgresql.conf
+# wal_level = replica
+# archive_mode = on
+# archive_command = 'true'
 
 #DATA=$(date +%Y%m%d-%H%M%S)
 DATA=$(date +%Y%m%d)
