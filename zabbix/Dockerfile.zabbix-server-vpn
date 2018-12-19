@@ -1,0 +1,10 @@
+FROM zabbix/zabbix-server-pgsql:alpine-3.4-latest
+
+#Roteamento para a vpn
+RUN sed -i '/#!\/bin\/bash/a if [ ! -z $NET_ROUTE ] && [ ! -z $VPN_SERVER_IP ]; then route add -net $NET_ROUTE gw $VPN_SERVER_IP; fi' /usr/bin/docker-entrypoint.sh
+
+#gdrive
+RUN apk add --update curl
+#    curl -L'#' "https://docs.google.com/uc?id=0B3X9GlR6EmbnQ0FtZmJJUXEyRTA&export=download" -o /usr/local/bin/gdrive-linux-x64-2.0.1 &&\
+#    chmod +x /usr/local/bin/gdrive-linux-x64-2.0.1 &&\
+#    ln -s /usr/local/bin/gdrive-linux-x64-2.0.1 /usr/local/bin/gdrive
