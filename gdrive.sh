@@ -2,8 +2,8 @@
 
 ZABBIX_HOME=/var/lib/zabbix
 
-FILE_ID="xpto"
 FILE_NAME="Equipamentos_monitorados"
+FILE_ID=$(/bin/gdrive -c $ZABBIX_HOME/gdrive list|grep " $FILE_NAME "|awk '{print $1}')
 
 JSON_BEGIN='{"data":['
 JSON_END=']}'
