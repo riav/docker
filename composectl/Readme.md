@@ -1,3 +1,3 @@
 # composectl install
 
-curl -sSL https://raw.githubusercontent.com/riav/docker/master/install-composectl.sh | sh
+curl -sSL https://raw.githubusercontent.com/riav/docker/master/composectl/install-composectl.sh | sh
