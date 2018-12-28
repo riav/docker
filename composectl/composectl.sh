@@ -8,6 +8,7 @@ if [ -e $YML ]; then
   CMD=$(echo $@|sed "s/$1 $2 //")
   docker-compose -p $1 -f $YML stop $CMD
   docker-compose -p $1 -f $YML rm -f $CMD
+  docker-compose -p $1 -f $YML pull $CMD
   docker-compose -p $1 -f $YML up -d $CMD
  else
   docker-compose -p $1 -f $YML $CMD
