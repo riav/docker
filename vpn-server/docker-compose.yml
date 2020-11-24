@@ -26,3 +26,17 @@ services:
     ports:
       - 500:500/udp
       - 4500:4500/udp
+      
+  vpn-client:
+    image: ubergarm/l2tp-ipsec-vpn-client
+    container_name: vpn-client
+    privileged: true
+    restart: always
+    network_mode: host
+    volumes:
+      - /lib/modules:/lib/modules:ro
+    environment:
+      VPN_SERVER_IPV4: x.x.x.x
+      VPN_PSK: chave_ipsec
+      VPN_USERNAME: usuario_l2tp
+      VPN_PASSWORD: senha_l2tp
