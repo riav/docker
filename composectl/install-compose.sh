@@ -8,7 +8,7 @@ if [ ! -e /usr/local/bin/docker-compose ] || [ "$1" = "--update" ]; then
  curl -L'#' https://github.com/docker/compose/releases/download/$COMPOSE_VERSION/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
  chmod +x /usr/local/bin/docker-compose
  ln -sf /usr/local/bin/docker-compose /usr/bin/
- ln -sf docker-compose /usr/local/bin/dcompose
+ ln -sf docker-compose /usr/local/bin/dcp
  docker-compose --version
 else
  echo "/usr/local/bin/docker-compose already exists!!"
