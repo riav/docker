@@ -12,5 +12,5 @@ if [ ! -e /usr/local/bin/docker-compose ] || [ "$1" = "--update" ]; then
  docker-compose --version
 else
  echo "/usr/local/bin/docker-compose already exists!!"
- echo "For update use: $0 /dev/stdin '--update' | '--update [COMPOSE_VERSION]'"
+ echo "For update use: $0 /dev/stdin --update | --update v[COMPOSE_VERSION]"
 fi
