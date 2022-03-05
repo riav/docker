@@ -7,7 +7,7 @@ Docker
     # yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
     # yum install docker-ce -y && systemctl enable docker.service && systemctl start docker.service
 
-**Instalação CentOS 8**
+**Instalação CentOS 8 / OL8**
 
     # dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo &&\
     CONTAINERD_IO=$(curl -sL https://download.docker.com/linux/centos/7/x86_64/stable/Packages | grep -o '>containerd.io.*<' | tail -1 | sed 's/>//;s/<//') &&\
