@@ -1,6 +1,6 @@
 #!/bin/sh
 #https://docs.docker.com/compose/install/#install-compose
-COMPOSE_VERSION=$(curl -sL https://github.com/docker/compose/releases/latest|grep 'docker%2Fcompose%2Freleases%2Ftag'|rev|awk -F'F2%' '{print $1}'|sed 's/"//g'|rev)
+COMPOSE_VERSION=$(curl -sL https://github.com/docker/compose/releases/latest|grep 'docker%2Fcompose%2Freleases%2Ftag'|head -1|rev|awk -F'F2%' '{print $1}'|sed 's/"//g'|rev)
 if [ ! -e /usr/local/bin/docker-compose ] || [ "$1" = "--update" ]; then
  [ "$2" != "" ] && COMPOSE_VERSION=$2
  [ -e /usr/local/bin/docker-compose ] && mv /usr/local/bin/docker-compose /usr/local/bin/docker-compose.old
