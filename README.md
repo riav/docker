@@ -15,12 +15,13 @@ Docker
     dnf install docker-ce --nobest -y &&\
     systemctl enable docker.service && systemctl start docker.service
     
-    sudo dnf install -y yum-utils &&\
-    sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo &&\
-    sudo dnf install docker-ce docker-ce-cli containerd.io docker-compose-plugin &&\
-    sudo systemctl enable docker &&\
-    sudo systemctl start docker &&\
-    sudo systemctl status docker
+    dnf install -y yum-utils &&\
+    yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo &&\
+    dnf install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin &&\
+    systemctl enable docker &&\
+    systemctl start docker &&\
+    echo -e 'alias docker-compose="docker compose"\nalias dcp="docker compose"' > /etc/profile.d/docker.sh &&\
+    source /etc/profile.d/docker.sh
 
 **Instalação Ubuntu**
 
