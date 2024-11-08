@@ -1,0 +1,10 @@
+version: "3"
+services:
+  docker:
+    image: docker:dind
+    command: sleep infinity
+    restart: always
+    privileged: true
+    volumes:
+      - /:/rootfs
+      - /var/run/docker.sock:/var/run/docker.sock
