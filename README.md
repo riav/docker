@@ -1,3 +1,6 @@
+# Gerador de senhas:
+    openssl rand -base64 32
+
 # docker
 Docker
 
