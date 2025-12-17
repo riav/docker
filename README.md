@@ -63,3 +63,15 @@ Opção 1:
 Opção 2:
 
     curl -sSL https://raw.githubusercontent.com/riav/docker/master/composectl/install-compose.sh | sh
+    
+# Docker swarm
+
+## Instalação
+
+    docker swarm init
+
+    # Copiar o comando gerado e executar nos nodes workers
+    docker swarm join --token ...
+
+    # Instalando rede overlay para proxy
+    docker network create --driver overlay network_public
