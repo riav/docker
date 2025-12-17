@@ -87,6 +87,9 @@ Opção 2:
     # Deploy stack
     docker stack deploy <nome_stacke> -c <stack.yaml>
 
+    # Listando stacks
+    docker stack ls
+
     # Listando serviços
     docker service ls
     
