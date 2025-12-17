@@ -52,6 +52,9 @@ Docker
     sudo systemctl start docker &&\
     sudo systemctl enable docker
 
+    # Bash-completion
+    dnf install bash-completion &&\
+    source /etc/profile.d/bash_completion.sh
 
 **Instalação Docker-Compose via repositório**
 
