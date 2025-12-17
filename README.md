@@ -75,3 +75,20 @@ Opção 2:
 
     # Instalando rede overlay para proxy
     docker network create --driver overlay network_public
+
+## Comandos
+
+    # Listando nodes
+    docker node ls
+
+    # Deploy stack
+    docker stack deploy <nome_stacke> -c <stack.yaml>
+
+    # Listando serviços
+    docker service ls
+    
+    # Reiniciando serviço
+    docker service update --force <service_name>
+
+    # Atualizando imagem de serviço
+    docker service update --image <image:tag> <service_name>
